@@ -1,4 +1,4 @@
-name: Build - Single Stage
+name: Build - Single Stage (Alpine)
 
 on:
   workflow_dispatch:

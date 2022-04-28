@@ -1,4 +1,4 @@
-name: Build - Single Stage
+name: Build - Single Stage (Ubuntu)
 
 on:
   workflow_dispatch:
