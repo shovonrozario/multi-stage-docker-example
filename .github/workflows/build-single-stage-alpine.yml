@@ -18,6 +18,6 @@ jobs:
         env:
           IMAGE_NAME: php-demo
         run: |
-          docker build -f Dockerfile.single_stage -t $IMAGE_NAME .
+          docker build -f Dockerfile.single_stage_alpine -t $IMAGE_NAME .
           docker images
 
