@@ -1,0 +1,34 @@
+name: Build - With Cache
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  build:
+    name: Build Image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3.0.1
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@2.18.1
+        with:
+          php-version: '8.0.2'
+          tools: composer:2.3.5
+
+      - name: Install Composer Dependencies
+        uses: ramsey/composer-install@2.1.0
+        with:
+          composer-options: --ignore-platform-reqs --no-scripts --no-autoloader
+
+      - name: Build image
+        id: build-image
+        env:
+          IMAGE_NAME: php-demo
+        run: |
+          docker build -f Dockerfile.enable_cache -t $IMAGE_NAME .
+          docker images
+

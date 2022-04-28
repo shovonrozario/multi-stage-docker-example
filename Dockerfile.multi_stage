@@ -1,0 +1,26 @@
+# Temporary Build Image
+FROM php:8.0.2-fpm as build-container
+
+RUN apt-get update
+RUN apt-get install -y wget unzip
+
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+COPY --chown=www-data:www-data . /var/www/app
+
+# Make the app the pwd
+WORKDIR /var/www/app
+
+RUN composer install --ignore-platform-reqs --no-scripts --no-autoloader
+
+
+# Final Build Image
+FROM php:8.0.2-fpm-alpine
+
+COPY --from=build-container --chown=www-data:www-data /var/www/app /var/www/app
+
+# Make the app the pwd
+WORKDIR /var/www/app
+
+CMD ["php","artisan","serve","--host","0.0.0.0"]

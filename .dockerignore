@@ -1,0 +1,12 @@
+# IDE Stuff
+.idea
+.vscode
+
+# Git stuff
+.git/
+
+# macOS Stuff
+.DS_Store
+
+# Ignore tests
+tests
